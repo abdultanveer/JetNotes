@@ -20,6 +20,10 @@ public class LamdaDemo {
         
         Teachable t1 = (sub) -> {System.out.println("training on "+sub);};
         t1.teach("java");
+
+        //life with method reference
+        Printable printable = MyClass::myMethod;
+        printable.print("printable content");
         
     }
 }
