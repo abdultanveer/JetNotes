@@ -33,8 +33,11 @@
  */
 package com.yourcompany.android.jetnotes.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.yourcompany.android.jetnotes.data.repository.Repository
+import com.yourcompany.android.jetnotes.domain.model.NoteModel
 
 /**
  * View model used for storing the global app state.
@@ -42,5 +45,8 @@ import com.yourcompany.android.jetnotes.data.repository.Repository
  * This view model is used for all screens.
  */
 class MainViewModel(private val repository: Repository) : ViewModel() {
+    val notesNotInTrash: LiveData<List<NoteModel>> by lazy {
+        repository.getAllNotesNotInTrash().asLiveData()
+    }
 
 }
