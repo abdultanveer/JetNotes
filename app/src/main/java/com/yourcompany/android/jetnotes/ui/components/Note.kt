@@ -18,11 +18,7 @@ import com.yourcompany.android.jetnotes.theme.green
 @Composable
 fun Note(){
     Row(modifier = Modifier.fillMaxWidth()) {
-        Box(
-            modifier = Modifier
-                .size(40.dp)
-                .background(green)
-        )
+        NoteColor(color = green, size = 40.dp, border = 1.dp )
         Column(modifier = Modifier.weight(1f)) {
 
             Text(text = "title", maxLines = 1)
