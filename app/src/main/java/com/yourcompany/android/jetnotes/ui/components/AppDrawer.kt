@@ -3,8 +3,10 @@ package com.yourcompany.android.jetnotes.ui.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -13,6 +15,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
@@ -22,6 +25,8 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.yourcompany.android.jetnotes.routing.Screen
+import com.yourcompany.android.jetnotes.theme.JetNotesTheme
 import com.yourcompany.android.jetnotes.theme.JetNotesThemeSettings
 
 @Composable
@@ -78,16 +83,43 @@ fun LightDarkThemeItem() {
     Text(text = "Turn on dark theme",
         style = MaterialTheme.typography.body2,
         color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
-        modifier = Modifier.weight(1f).padding(8.dp).align(alignment = Alignment.CenterVertically)
+        modifier = Modifier
+            .weight(1f)
+            .padding(8.dp)
+            .align(alignment = Alignment.CenterVertically)
     )
         Switch(checked = JetNotesThemeSettings.isDarkThemeEnabled,
-            modifier = Modifier.padding(start = 8.dp, end = 8.dp).align(alignment = Alignment.CenterVertically),
+            modifier = Modifier
+                .padding(start = 8.dp, end = 8.dp)
+                .align(alignment = Alignment.CenterVertically),
             onCheckedChange = {            JetNotesThemeSettings.isDarkThemeEnabled = it},
 
         )
     }
     
 }
+
+@Composable
+fun AppDrawer(currentScreen:Screen, onScreenSelected: (Screen)-> Unit) {
+    Column (modifier = Modifier.fillMaxSize()){
+        AppDrawerHeader()
+        ScreenNavigationButton(icon = Icons.Filled.Home,
+            label = "Notes",
+            isSelected = currentScreen == Screen.Notes,
+            onClick = {
+                onScreenSelected.invoke(Screen.Notes)
+            })
+        ScreenNavigationButton(icon = Icons.Filled.Delete,
+            label = "Trash",
+            isSelected = currentScreen == Screen.Trash,
+            onClick = {
+                onScreenSelected.invoke(Screen.Trash)
+            })
+        LightDarkThemeItem()
+    }
+    
+}
+
 @Preview
 @Composable
 fun LightDarkThemeItemPreview() {
@@ -105,5 +137,13 @@ fun AppDrawerHeaderPreview(){
 private fun ScreenNavigationButtonPreview(){
     ScreenNavigationButton(icon = Icons.Filled.Home, label = "Notes", isSelected = true,) {
         
+    }
+}
+
+@Preview
+@Composable
+fun AppDrawerPreview(){
+    JetNotesTheme {
+        AppDrawer(currentScreen = Screen.Notes , onScreenSelected = {} )
     }
 }
