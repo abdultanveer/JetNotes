@@ -48,10 +48,13 @@ import kotlinx.coroutines.launch
  * This view model is used for all screens.
  */
 class MainViewModel(private val repository: Repository) : ViewModel() {
+    //data/state : i'll be emitting to the ui[composable] for them to recompose[refersh]
+
     val notesNotInTrash: LiveData<List<NoteModel>> by lazy {
         repository.getAllNotesNotInTrash().asLiveData()
     }
 
+    //events i'll be receiving from my UI[when user clicks the note]
     fun onCreateNewNoteClick(){}
     fun onNoteClick(){}
     fun onNoteCheckChanged(note: NoteModel){
