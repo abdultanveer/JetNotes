@@ -45,10 +45,14 @@ import androidx.compose.material.ScaffoldState
 import androidx.compose.material.rememberDrawerState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.yourcompany.android.jetnotes.routing.Screen
 import com.yourcompany.android.jetnotes.theme.JetNotesTheme
 import com.yourcompany.android.jetnotes.ui.components.AppDrawer
 import com.yourcompany.android.jetnotes.ui.components.Note
+import com.yourcompany.android.jetnotes.ui.screens.NotesScreen
 import com.yourcompany.android.jetnotes.viewmodel.MainViewModel
 import com.yourcompany.android.jetnotes.viewmodel.MainViewModelFactory
 import kotlinx.coroutines.launch
@@ -77,14 +81,30 @@ class MainActivity : AppCompatActivity() {
         val  coroutineScope = rememberCoroutineScope()
         val scaffoldState: ScaffoldState = rememberScaffoldState()
        // val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed )
+        val navController = rememberNavController()
 
-        Scaffold(scaffoldState = scaffoldState,
+        Scaffold(
+          scaffoldState = scaffoldState,
           drawerContent = {
-                          AppDrawer(currentScreen = Screen.Notes, onScreenSelected = {
-                            screen ->  coroutineScope.launch { scaffoldState.drawerState.close() }
-                          } )
+            AppDrawer(
+              currentScreen = Screen.Notes,
+              onScreenSelected = { screen ->
+                coroutineScope.launch {
+                  scaffoldState.drawerState.close()
+                }
+              }
+            )
           },
-          content = { Note()})
+          content = {
+            NavHost(
+              navController = navController,
+              startDestination = Screen.Notes.route
+            ) {
+              composable(Screen.Notes.route) { NotesScreen(viewModel) }
+            }
+          }
+        )
+
 
       }
 
