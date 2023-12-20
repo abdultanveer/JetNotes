@@ -68,7 +68,8 @@ private fun ScreenNavigationButton(
                 colorFilter = ColorFilter.tint(textColor),
                 alpha = imageAlpha)
             Spacer(modifier = Modifier.width(16.dp))
-            Text(text = label, style = MaterialTheme.typography.body2, color =  textColor,
+            Text(text = label, style = MaterialTheme.typography.body2,
+                color =  textColor,
                 modifier = Modifier.fillMaxWidth())
         }
 

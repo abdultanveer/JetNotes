@@ -27,7 +27,7 @@ fun NoteColor(myModifier:Modifier = Modifier,
         //.padding(padding)
         .size(size)
         .clip(CircleShape)
-        .background(Color.Red)
+        .background(color)
         .border(
             BorderStroke(
                 border,
