@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.yourcompany.android.jetnotes.theme.JetNotesThemeSettings
 
 @Composable
 private fun AppDrawerHeader(){
@@ -67,6 +69,29 @@ private fun ScreenNavigationButton(
 
     }
 
+}
+
+
+@Composable
+fun LightDarkThemeItem() {
+    Row(Modifier.padding(8.dp)) {
+    Text(text = "Turn on dark theme",
+        style = MaterialTheme.typography.body2,
+        color = MaterialTheme.colors.onSurface.copy(alpha = 0.6f),
+        modifier = Modifier.weight(1f).padding(8.dp).align(alignment = Alignment.CenterVertically)
+    )
+        Switch(checked = JetNotesThemeSettings.isDarkThemeEnabled,
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp).align(alignment = Alignment.CenterVertically),
+            onCheckedChange = {            JetNotesThemeSettings.isDarkThemeEnabled = it},
+
+        )
+    }
+    
+}
+@Preview
+@Composable
+fun LightDarkThemeItemPreview() {
+    LightDarkThemeItem()
 }
 
 @Preview
