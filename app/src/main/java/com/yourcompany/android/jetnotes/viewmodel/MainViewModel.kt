@@ -56,7 +56,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     //events i'll be receiving from my UI[when user clicks the note]
     fun onCreateNewNoteClick(){}
-    fun onNoteClick(){}
+    fun onNoteClick(note: NoteModel){}
     fun onNoteCheckChanged(note: NoteModel){
         viewModelScope.launch(Dispatchers.Default) {
             repository.insertNote(note)
